@@ -1,13 +1,11 @@
 <?php
-
-function wp_enqueue_assets(){
-    wp_enqueue_style(
-        'parent-style',
-        get_template_directory_uri() . 'style.css'
-    );
+function wp_enqueue_assets() {
+    wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+    wp_enqueue_style( 'child-header', get_stylesheet_directory_uri() . '/css/header.css', array( 'parent-style' ) );
+    wp_enqueue_style( 'child-footer', get_stylesheet_directory_uri() . '/css/footer.css' , array( 'parent-style' ));
+    wp_enqueue_style( 'child-main', get_stylesheet_directory_uri() . '/css/main.css' , array( 'parent-style' ));
 }
-
-add_action('wp_enqueue_scripts', 'wp_enqueue_assets');
+add_action( 'wp_enqueue_scripts', 'wp_enqueue_assets' );
 
 function game_register_post_type(){
 

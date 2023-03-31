@@ -1,7 +1,13 @@
 <?php
 
 get_header();
-
 ?>
 
-<h1>HELLO</h1>
+<main>
+    <h1>
+        HELLO
+    </h1>
+</main>
+
+<?php
+get_footer();
