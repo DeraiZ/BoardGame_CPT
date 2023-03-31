@@ -38,289 +38,154 @@ function wp_remove_meta_box(){
 }
 
 add_action('admin_menu', 'wp_remove_meta_box');
-
 function add_game_description_meta_box() {
     add_meta_box(
-        'game_description_meta_box', // Unique ID
-        'Description', // Box title
-        'game_description_meta_box_function', // Content callback
+        'game_info_meta_box', // Unique ID
+        'Information du Jeux', // Box title
+        'game_info_meta_box_function', // Content callback
         'games', // Post type
         'normal', // Position
         'high' // Priority
     );
+
 }
+
 add_action( 'add_meta_boxes', 'add_game_description_meta_box' );
 
-function game_description_meta_box_function( $post ) {
-    wp_nonce_field( 'game_description_meta_box', 'game_description_meta_box_nonce' );
+function game_info_meta_box_function( $post ) {
+    wp_nonce_field( 'game_info_meta_box', 'game_info_meta_box_nonce' );
+    $value = get_post_meta( $post->ID, '_game_name', true );
+    echo '<p>Nom du Jeu</p><input type="text" name="game_description" value="' . esc_attr( $value ) . '"/>';
+
+    wp_nonce_field( 'game_info_meta_box', 'game_info_meta_box_nonce' );
+    $value = get_post_meta( $post->ID, '_game_year', true );
+    echo '<p>Année de Sortie</p><input type="number" name="game_year" value="' . esc_attr( $value ) . '"/>';
+
+    wp_nonce_field( 'game_info_meta_box', 'game_info_meta_box_nonce' );
+    $value = get_post_meta( $post->ID, '_game_price', true );
+    echo '<p>Price</p><input type="number" name="game_price" value="' . esc_attr( $value ) . '"/>';
+
+    wp_nonce_field( 'game_info_meta_box', 'game_info_meta_box_nonce' );
+    $value = get_post_meta( $post->ID, '_game_date', true );
+    echo '<p>Date de Sortie</p><input type="text" name="game_date" value="' . esc_attr( $value ) . '"/>';
+
+    wp_nonce_field( 'game_info_meta_box', 'game_info_meta_box_nonce' );
+    $value = get_post_meta( $post->ID, '_game_time', true );
+    echo '<p>Temps de Jeux</p><input type="text" name="game_time" value="' . esc_attr( $value ) . '"/>';
+
+    wp_nonce_field( 'game_info_meta_box', 'game_info_meta_box_nonce' );
+    $value = get_post_meta( $post->ID, '_game_nb_player', true );
+    echo '<p>Nombre de Joueur</p><input type="number" name="game_nb_player" value="' . esc_attr( $value ) . '"/>';
+
+    wp_nonce_field( 'game_info_meta_box', 'game_info_meta_box_nonce' );
+    $value = get_post_meta( $post->ID, '_game_content', true );
+    echo '<p>Contenue de la Boite</p><textarea rows="5" cols="50" name="game_content">' . esc_attr( $value ) . '</textarea>';
+
+    wp_nonce_field( 'game_info_meta_box', 'game_info_meta_box_nonce' );
     $value = get_post_meta( $post->ID, '_game_description', true );
-    echo '<textarea rows="5" cols="50" name="game_description">' . esc_attr( $value ) . '</textarea>';
+    echo '<p>Description</p><textarea rows="5" cols="50" name="game_description">' . esc_attr( $value ) . '</textarea>';
 }
-
-function add_game_name_meta_box(){
-    add_meta_box(
-        'game_name_meta_box', // Unique ID
-        'Nom du Jeu', // Box title
-        'game_name_meta_box_function', // Content callback
-        'games', // Post type
-        'normal', // Position
-        'high' // Priority
-    );
-}
-
-add_action( 'add_meta_boxes', 'add_game_name_meta_box' );
 
 function game_name_meta_box_function( $post ) {
     wp_nonce_field( 'game_name_meta_box', 'game_name_meta_box_nonce' );
     $value = get_post_meta( $post->ID, '_game_name', true );
-    echo '<input type="text" name="game_name" value='. esc_attr( $value ) . '>';
+    echo '<input type="text" name="game_name" value=' . esc_attr( $value ) . '/>';
 }
 
-function add_game_date_meta_box(){
-    add_meta_box(
-        'game_date_meta_box', // Unique ID
-        'Date de Sortie', // Box title
-        'game_date_meta_box_function', // Content callback
-        'games', // Post type
-        'normal', // Position
-        'high' // Priority
+
+
+function save_game_info_meta_box_data( $post_id ) {
+    if ( ! isset( $_POST['game_info_meta_box_nonce'] ) ) {
+        return;
+    }
+    if ( ! wp_verify_nonce( $_POST['game_info_meta_box_nonce'], 'game_description_meta_box' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+    if ( ! isset( $_POST['game_info'] ) ) {
+        return;
+    }
+    $my_data = sanitize_textarea_field( $_POST['game_info'] );
+    update_post_meta( $post_id, '_game_info', $my_data );
+}
+
+add_action( 'save_post', 'save_game_info_meta_box_data' );
+
+function games_taxonomy(){
+    $labels = array(
+        'name'          => _x('Catégories de Jeux', 'taxonomy general name'),
+        'singular_name' => _x('Categorie de Jeux', 'taxonomy general name'),
+        'search_items'  => __('Rechercher une Catégories'),
+        'all_items'     => __('Toutes les Catégories'),
+        'update_item'   => __('Mettre à jour une Catégories'),
+        'add_item'      => __('Ajouter une nouvelle Catégorie'),
+        'new_item_name' => __('Nom de la Nouvelle Catégorie'),
+        'not_found'     => __('Catégory Non Trouver'),
+        'menu_name'     => __('Catégorie de Jeux')
     );
-}
+    $args_category_jeu = array(
+        'hierarchical'          => true,
+        'labels'                => $labels,
+        'show_ui'               => true,
+        'show_in_rest'			=> true,
+        'show_admin_column'     => true,
+        'query_var'             => true,
+        'rewrite'               => array( 'slug' => 'categories-jeux' ),
 
-add_action( 'add_meta_boxes', 'add_game_date_meta_box' );
-
-function game_date_meta_box_function( $post ) {
-    wp_nonce_field( 'game_date_meta_box', 'game_date_meta_box_nonce' );
-    $value = get_post_meta( $post->ID, '_game_date', true );
-    echo '<input type="text" name="game_date" value='. esc_attr( $value ) . '>';
-}
-
-function add_game_price_meta_box(){
-    add_meta_box(
-        'game_price_meta_box', // Unique ID
-        'Prix', // Box title
-        'game_price_meta_box_function', // Content callback
-        'games', // Post type
-        'normal', // Position
-        'high' // Priority
     );
-}
+    register_taxonomy( 'categories_jeux', 'games', $args_category_jeu );
 
-add_action( 'add_meta_boxes', 'add_game_price_meta_box' );
-
-function game_price_meta_box_function( $post ) {
-    wp_nonce_field( 'game_price_meta_box', 'game_price_meta_box_nonce' );
-    $value = get_post_meta( $post->ID, '_game_price', true );
-    echo '<input type="number" name="game_price" value='. esc_attr( $value ) . '>';
-}
-
-function add_game_time_meta_box(){
-    add_meta_box(
-        'game_time_meta_box', // Unique ID
-        'Temps de Jeu', // Box title
-        'game_time_meta_box_function', // Content callback
-        'games', // Post type
-        'normal', // Position
-        'high' // Priority
+    $labels_categ_type = array(
+        'name'          => _x('Catégories de Types de Jeux', 'taxonomy general name'),
+        'singular_name' => _x('Categorie de Type de Jeux', 'taxonomy general name'),
+        'search_items'  => __('Rechercher une Catégories'),
+        'all_items'     => __('Toutes les Catégories'),
+        'update_item'   => __('Mettre à jour une Catégories'),
+        'add_item'      => __('Ajouter une nouvelle Catégorie'),
+        'new_item_name' => __('Nom de la Nouvelle Catégorie'),
+        'not_found'     => __('Catégory Non Trouver'),
+        'menu_name'     => __('Catégorie de Jeux')
     );
-}
+    $args_category_type = array(
+        'hierarchical'          => true,
+        'labels'                => $labels_categ_type,
+        'show_ui'               => true,
+        'show_in_rest'			=> true,
+        'show_admin_column'     => true,
+        'query_var'             => true,
+        'rewrite'               => array( 'slug' => 'categories-jeux' ),
 
-add_action( 'add_meta_boxes', 'add_game_time_meta_box' );
-
-function game_time_meta_box_function( $post ) {
-    wp_nonce_field( 'game_time_meta_box', 'game_time_meta_box_nonce' );
-    $value = get_post_meta( $post->ID, '_game_time', true );
-    echo '<input type="text" name="game_time" value=' . esc_attr( $value ) . '>';
-}
-
-function add_game_nb_player_meta_box(){
-    add_meta_box(
-        'game_nb_player_meta_box', // Unique ID
-        'Nombre de Joueur', // Box title
-        'game_nb_player_meta_box_function', // Content callback
-        'games', // Post type
-        'normal', // Position
-        'high' // Priority
     );
-}
+    register_taxonomy( 'categories_games_type', 'games', $args_category_type );
 
-add_action( 'add_meta_boxes', 'add_game_nb_player_meta_box' );
-
-function game_nb_player_meta_box_function( $post ) {
-    wp_nonce_field( 'game_nb_player_meta_box', 'game_nb_player_meta_box_nonce' );
-    $value = get_post_meta( $post->ID, '_game_nb_player', true );
-    echo '<input type="number" name="game_nb_player" value='. esc_attr( $value ) . '>';
-}
-
-function add_game_content_meta_box(){
-    add_meta_box(
-        'game_content_meta_box', // Unique ID
-        'Contenu de la Boite', // Box title
-        'game_content_meta_box_function', // Content callback
-        'games', // Post type
-        'normal', // Position
-        'high' // Priority
+    $labels_categ_thematique = array(
+        'name'          => _x('Catégories de Thématiques', 'taxonomy general name'),
+        'singular_name' => _x('Categorie de Thématique', 'taxonomy general name'),
+        'search_items'  => __('Rechercher une Catégories'),
+        'all_items'     => __('Toutes les Catégories'),
+        'update_item'   => __('Mettre à jour une Catégories'),
+        'add_item'      => __('Ajouter une nouvelle Catégorie'),
+        'new_item_name' => __('Nom de la Nouvelle Catégorie'),
+        'not_found'     => __('Catégory Non Trouver'),
+        'menu_name'     => __('Catégorie de Jeux')
     );
+    $args_category_thematique = array(
+        'hierarchical'          => true,
+        'labels'                => $labels_categ_thematique,
+        'show_ui'               => true,
+        'show_in_rest'			=> true,
+        'show_admin_column'     => true,
+        'query_var'             => true,
+        'rewrite'               => array( 'slug' => 'categories-jeux' ),
+
+    );
+    register_taxonomy( 'categories_games_thematique', 'games', $args_category_thematique );
 }
 
-add_action( 'add_meta_boxes', 'add_game_content_meta_box' );
+add_action('init', 'games_taxonomy', 0);
 
-function game_content_meta_box_function( $post ) {
-    wp_nonce_field( 'game_content_meta_box', 'game_content_meta_box_nonce' );
-    $value = get_post_meta( $post->ID, '_game_content', true );
-    echo '<textarea rows="5" cols="50" name="game_content">' . esc_attr( $value ) . '</textarea>';
-}
-
-function save_game_description_meta_box_data( $post_id ) {
-    if ( ! isset( $_POST['game_description_meta_box_nonce'] ) ) {
-        return;
-    }
-    if ( ! wp_verify_nonce( $_POST['game_description_meta_box_nonce'], 'game_description_meta_box' ) ) {
-        return;
-    }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-    if ( ! isset( $_POST['game_description'] ) ) {
-        return;
-    }
-    $my_data = sanitize_textarea_field( $_POST['game_description'] );
-    update_post_meta( $post_id, '_game_description', $my_data );
-}
-
-add_action( 'save_post', 'save_game_description_meta_box_data' );
-
-function save_game_name_meta_box_data( $post_id ) {
-    if ( ! isset( $_POST['game_name_meta_box_nonce'] ) ) {
-        return;
-    }
-    if ( ! wp_verify_nonce( $_POST['game_name_meta_box_nonce'], 'game_name_meta_box' ) ) {
-        return;
-    }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-    if ( ! isset( $_POST['game_name'] ) ) {
-        return;
-    }
-    $my_data = sanitize_textarea_field( $_POST['game_name'] );
-    update_post_meta( $post_id, '_game_name', $my_data );
-}
-
-add_action( 'save_post', 'save_game_name_meta_box_data' );
-
-function save_game_date_meta_box_data( $post_id ) {
-    if ( ! isset( $_POST['game_date_meta_box_nonce'] ) ) {
-        return;
-    }
-    if ( ! wp_verify_nonce( $_POST['game_date_meta_box_nonce'], 'game_date_meta_box' ) ) {
-        return;
-    }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-    if ( ! isset( $_POST['game_date'] ) ) {
-        return;
-    }
-    $my_data = sanitize_textarea_field( $_POST['game_date'] );
-    update_post_meta( $post_id, '_game_date', $my_data );
-}
-
-add_action( 'save_post', 'save_game_date_meta_box_data' );
-
-function save_game_price_meta_box_data( $post_id ) {
-    if ( ! isset( $_POST['game_price_meta_box_nonce'] ) ) {
-        return;
-    }
-    if ( ! wp_verify_nonce( $_POST['game_price_meta_box_nonce'], 'game_price_meta_box' ) ) {
-        return;
-    }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-    if ( ! isset( $_POST['game_price'] ) ) {
-        return;
-    }
-    $my_data = sanitize_textarea_field( $_POST['game_price'] );
-    update_post_meta( $post_id, '_game_price', $my_data );
-}
-
-add_action( 'save_post', 'save_game_price_meta_box_data' );
-
-function save_game_time_meta_box_data( $post_id ) {
-    if ( ! isset( $_POST['game_time_meta_box_nonce'] ) ) {
-        return;
-    }
-    if ( ! wp_verify_nonce( $_POST['game_time_meta_box_nonce'], 'game_time_meta_box' ) ) {
-        return;
-    }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-    if ( ! isset( $_POST['game_time'] ) ) {
-        return;
-    }
-    $my_data = sanitize_textarea_field( $_POST['game_time'] );
-    update_post_meta( $post_id, '_game_time', $my_data );
-}
-
-add_action( 'save_post', 'save_game_time_meta_box_data' );
-
-function save_game_nb_player_meta_box_data( $post_id ) {
-    if ( ! isset( $_POST['game_nb_player_meta_box_nonce'] ) ) {
-        return;
-    }
-    if ( ! wp_verify_nonce( $_POST['game_nb_player_meta_box_nonce'], 'game_nb_player_meta_box' ) ) {
-        return;
-    }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-    if ( ! isset( $_POST['game_nb_player'] ) ) {
-        return;
-    }
-    $my_data = sanitize_textarea_field( $_POST['game_nb_player'] );
-    update_post_meta( $post_id, '_game_nb_player', $my_data );
-}
-
-add_action( 'save_post', 'save_game_nb_player_meta_box_data' );
-
-function save_game_content_meta_box_data( $post_id ) {
-    if ( ! isset( $_POST['game_content_meta_box_nonce'] ) ) {
-        return;
-    }
-    if ( ! wp_verify_nonce( $_POST['game_content_meta_box_nonce'], 'game_content_meta_box' ) ) {
-        return;
-    }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-    if ( ! isset( $_POST['game_content'] ) ) {
-        return;
-    }
-    $my_data = sanitize_textarea_field( $_POST['game_content'] );
-    update_post_meta( $post_id, '_game_content', $my_data );
-}
-
-add_action( 'save_post', 'save_game_content_meta_box_data' );

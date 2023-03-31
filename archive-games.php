@@ -1,4 +1,11 @@
-<?php get_header(); ?>
+<?php get_header();
+
+$field = array('name','year','date','price','nb_player','time','content','description');
+var_dump(count($field));
+for ($i = 0; $i < count($field); $i++){
+    echo $field[$i];
+}
+?>
 <h1 class="site__heading">
     <?php post_type_archive_title(); ?>
 </h1>

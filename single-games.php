@@ -1,10 +1,13 @@
 <?php
 get_header();
 
-
 $name = get_post_meta( get_the_ID(), '_game_name', true );
 if ( ! empty( $name ) ) {
     echo '<h1>' . esc_html( $name ) . '</h1>';
+}
+$year = get_post_meta( get_the_ID(), '_game_year', true );
+if ( ! empty( $year ) ) {
+    echo '<p>' . esc_html( $year ) . '</p>';
 }
 $date = get_post_meta( get_the_ID(), '_game_date', true );
 if ( ! empty( $date ) ) {
@@ -32,3 +35,6 @@ if ( ! empty( $description ) ) {
 }
 ?>
 
+<header>
+
+</header>
