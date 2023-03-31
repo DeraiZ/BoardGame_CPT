@@ -1,11 +1,10 @@
 <?php
-$description = get_post_meta( get_the_ID(), '_game_description', true );
-if ( ! empty( $description ) ) {
-    echo '<p>' . esc_html( $description ) . '</p>';
-}
+get_header();
+
+
 $name = get_post_meta( get_the_ID(), '_game_name', true );
 if ( ! empty( $name ) ) {
-    echo '<p>' . esc_html( $name ) . '</p>';
+    echo '<h1>' . esc_html( $name ) . '</h1>';
 }
 $date = get_post_meta( get_the_ID(), '_game_date', true );
 if ( ! empty( $date ) ) {
@@ -27,4 +26,9 @@ $content = get_post_meta( get_the_ID(), '_game_content', true );
 if ( ! empty( $content ) ) {
     echo '<p>' . esc_html( $content ) . '</p>';
 }
+$description = get_post_meta( get_the_ID(), '_game_description', true );
+if ( ! empty( $description ) ) {
+    echo '<p>' . esc_html( $description ) . '</p>';
+}
 ?>
+
