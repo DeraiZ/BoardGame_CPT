@@ -1,6 +1,10 @@
+body {
+  background-color: #F7F7F2 !important;
+}
+
 main {
     min-height: 80vh ;
-    background-color: #F7F7F2;
+    
 }
 
 
