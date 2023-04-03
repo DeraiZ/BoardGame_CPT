@@ -3,7 +3,7 @@ body {
 }
 
 main {
-    min-height: 80vh ;
+    min-height: 86.95vh ;
     
 }
 
@@ -19,7 +19,7 @@ main {
   
   .block-filtre {
     width: calc(25% - 30px);
-    height: 100px;
+    height: 80px;
     background-color: #ccc;
     margin-top: 15px;
     border-radius: 10px;
@@ -90,22 +90,20 @@ main {
   align-items: center;
 }
 .body-card {
-  background-color: red;
+  background-color: #FFFFFF;
   width: calc(25% - 30px);
   height: 250px;
-  background-color: #ccc;
   margin-top: 15px;
   border-radius: 10px;
 }
 
 .text-card {
-  color: white;
+  color: #101010;
 }
 
 @media (max-width: 900px) {
   .block-filtre {
     width: calc(50% - 10px);
-    height: 150px;
   }
 
   .body-card {
