@@ -34,7 +34,3 @@ if ( ! empty( $description ) ) {
     echo '<p>' . esc_html( $description ) . '</p>';
 }
 ?>
-
-<header>
-
-</header>
