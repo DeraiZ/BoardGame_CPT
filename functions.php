@@ -244,4 +244,3 @@ function game_image_enqueue_scripts() {
 }
 add_action( 'admin_enqueue_scripts', 'game_image_enqueue_scripts' );
 
-
