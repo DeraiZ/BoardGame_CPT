@@ -18,7 +18,7 @@ main {
   }
   
   .block-filtre {
-    width: calc(25% - 30px);
+    width: calc(22% - 30px);
     height: 80px;
     background-color: #ccc;
     margin-top: 15px;
@@ -54,14 +54,14 @@ main {
   }
 
   .block-picture {
-    width: 50%;
+    width: 40%;
     display: flex;
     justify-content: center;
   }
 
   .block-content {
     color: #ccc;
-    width: 50%;
+    width: 60%;
     display: flex;
     justify-content: center;
   }
@@ -104,6 +104,7 @@ main {
 @media (max-width: 900px) {
   .block-filtre {
     width: calc(50% - 10px);
+    height: 100px;
   }
 
   .body-card {
@@ -114,7 +115,7 @@ main {
 @media (max-width: 400px) {
   .block-filtre {
     width: calc(100% - 20px);
-    height: 150px;
+    height: 120px;
   }
 
   .body-card {
