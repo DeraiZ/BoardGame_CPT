@@ -242,4 +242,5 @@ function game_image_enqueue_scripts() {
     wp_enqueue_media();
     wp_enqueue_script( 'game-image-upload', get_stylesheet_directory_uri() . '/js/game-image-upload.js', array( 'jquery' ), '1.0.0', true );
 }
+
 add_action( 'admin_enqueue_scripts', 'game_image_enqueue_scripts' );
