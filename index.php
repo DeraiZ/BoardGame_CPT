@@ -17,6 +17,7 @@ if ($games) : ?>
     <ul>
         <?php foreach ( $games as $game ) : setup_postdata( $game ); ?>
             <li>
+                <img style="width: 5rem" src="<?= get_post_meta($game->ID, '_game_image')[0] ?>">
                 <a href="<?= $game->guid ?>"><?= $game->post_title; ?></a>
             </li>
         <?php endforeach; wp_reset_postdata(); ?>
