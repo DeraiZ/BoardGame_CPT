@@ -1,6 +1,8 @@
 <?php
 get_header();
 
+
+
 $name = get_post_meta( get_the_ID(), '_game_name', true );
 if ( ! empty( $name ) ) {
     echo '<h1>' . esc_html( $name ) . '</h1>';
