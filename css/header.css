@@ -22,6 +22,9 @@
     align-items: center;
 }
 
+.search-container {
+    width: 200px;
+}
 .search-form {
     display: flex;
     justify-content: flex-end;
@@ -59,3 +62,30 @@ input[type="submit"] {
     display: none;
 }
 
+
+
+@media (max-width: 400px) {
+    .navigation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .search-header {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .search-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo {
+        width: 100%;
+    }
+  }
