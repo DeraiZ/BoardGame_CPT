@@ -2,3 +2,76 @@ main {
     min-height: 80vh ;
     margin-top: 5vh;
 }
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 20px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+  
+  .block-filtre {
+    width: calc(25% - 30px);
+    height: 100px;
+    background-color: #ccc;
+    margin-top: 15px;
+    border-radius: 10px;
+
+  }
+
+  .liens-block {
+    width: 100%;
+  }
+
+  .block-tendance {
+    background-color: #0B9961;
+  }
+  .block-nouveautés {
+    background-color: #5F4A4B;
+  }
+
+  .block-plateaux {
+    background-color: #CC46C3;
+  }
+
+  .block-cartes {
+    background-color: #2721AA;
+  }
+
+  .block-body {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+  }
+
+  .block-picture {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .block-content {
+    color: #ccc;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  @media (max-width: 900px) {
+    .block-filtre {
+      width: calc(50% - 10px);
+      height: 150px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .block-filtre {
+      width: calc(100% - 20px);
+      height: 150px;
+    }
+  }

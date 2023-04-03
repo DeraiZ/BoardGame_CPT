@@ -4,9 +4,7 @@ get_header();
 ?>
 
 <main>
-    <h1>
-        HELLO
-    </h1>
+<?php get_template_part( 'block', 'article' ); ?>
 </main>
 
 <?php
