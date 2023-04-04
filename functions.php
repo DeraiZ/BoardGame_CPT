@@ -1,4 +1,6 @@
 <?php
+
+//Import custom css into Wordpress
 function wp_enqueue_assets() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
     wp_enqueue_style( 'child-header', get_stylesheet_directory_uri() . '/css/header.css', array( 'parent-style' ) );
@@ -9,6 +11,7 @@ function wp_enqueue_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'wp_enqueue_assets' );
 
+//Initialize post
 function game_register_post_type(){
 
     $labels = array(
@@ -33,11 +36,14 @@ function game_register_post_type(){
 
 add_action('init', 'game_register_post_type');
 
+//remove slug meta box in Add game form
 function wp_remove_meta_box(){
     remove_meta_box('slugdiv', 'games', 'normal');
 }
 
 add_action('admin_menu', 'wp_remove_meta_box');
+
+//add game info meta obx into add new game form
 function add_game_info_meta_box() {
     add_meta_box(
         'game_info_meta_box', // Unique ID
@@ -52,33 +58,44 @@ function add_game_info_meta_box() {
 
 add_action( 'add_meta_boxes', 'add_game_info_meta_box' );
 
+
+//add field in game info meta box
 function game_info_meta_box_function( $post ) {
 
+    //add input field Name
     $name = get_post_meta( $post->ID, '_game_name', true );
     echo '<p>Nom du Jeu</p><input type="text" name="game_name" value="' . esc_attr( $name ) . '"/>';
 
+    //add input field publication year
     $year = get_post_meta( $post->ID, '_game_year', true );
     echo '<p>Année de Sortie</p><input type="number" name="game_year" value="' . esc_attr( $year ) . '"/>';
 
+    //add input field price
     $price = get_post_meta( $post->ID, '_game_price', true );
     echo '<p>Price</p><input type="number" name="game_price" value="' . esc_attr( $price ) . '"/>';
 
+    //add input field published date
     $date = get_post_meta( $post->ID, '_game_date', true );
     echo '<p>Date de Sortie</p><input type="text" name="game_date" value="' . esc_attr( $date ) . '"/>';
 
+    // add input field playtime
     $time = get_post_meta( $post->ID, '_game_time', true );
     echo '<p>Temps de Jeux</p><input type="text" name="game_time" value="' . esc_attr( $time ) . '"/>';
 
+    //add input field Nb_player
     $nb_player = get_post_meta( $post->ID, '_game_nb_player', true );
     echo '<p>Nombre de Joueur</p><input type="number" name="game_nb_player" value="' . esc_attr( $nb_player ) . '"/>';
 
+    //add textarea field for box content
     $content = get_post_meta( $post->ID, '_game_content', true );
     echo '<p>Contenue de la Boite</p><textarea rows="5" cols="50" name="game_content">' . esc_attr( $content ) . '</textarea>';
 
+    //add textarea field for game description
     $desc = get_post_meta( $post->ID, '_game_description', true );
     echo '<p>Description</p><textarea rows="5" cols="50" name="game_description">' . esc_attr( $desc ) . '</textarea>';
 }
 
+//save game info for each new game info field
 function save_game_info_meta_box_data( $post_id ) {
 
     if ( ! current_user_can( 'edit_post', $post_id ) ) {
@@ -123,6 +140,7 @@ function save_game_info_meta_box_data( $post_id ) {
 
 add_action( 'save_post', 'save_game_info_meta_box_data' );
 
+//create new custom taxonomy
 function games_taxonomy(){
     $labels = array(
         'name'          => _x('Catégories de Jeux', 'taxonomy general name'),
@@ -209,6 +227,7 @@ function add_game_image_meta_box() {
 }
 add_action( 'add_meta_boxes', 'add_game_image_meta_box' );
 
+//add image meta box and field
 function game_image( $post ) {
     wp_nonce_field( 'game_image_meta_box', 'game_image_meta_box_nonce' );
     $image = get_post_meta( $post->ID, '_game_image', true );
@@ -221,6 +240,7 @@ function game_image( $post ) {
     }
 }
 
+//save image in new game info
 function save_game_image_meta_box_data( $post_id ) {
     if ( ! isset( $_POST['game_image_meta_box_nonce'] ) ) {
         return;
@@ -240,6 +260,7 @@ function save_game_image_meta_box_data( $post_id ) {
 }
 add_action( 'save_post', 'save_game_image_meta_box_data' );
 
+//import jquery to display image
 function game_image_enqueue_scripts() {
     wp_enqueue_media();
     wp_enqueue_script( 'game-image-upload', get_stylesheet_directory_uri() . '/js/game-image-upload.js', array( 'jquery' ), '1.0.0', true );

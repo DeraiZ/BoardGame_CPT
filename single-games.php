@@ -82,9 +82,15 @@ $them = wp_get_object_terms(get_the_ID(), 'categories_games_thematique');
                     $categories_games_them = $them[$i]->name;
                 
                     if ( ! empty( $categories_games_type ) ) {
-                        echo '<p class="category-type">' . esc_html( $categories_games_type ) . '</p>';
-                        echo '<p class="category-étiquettes">' . esc_html( $categories_games ) . '</p>';
-                        echo '<p class="category-taxonomie">' . esc_html( $categories_games_them ) . '</p>';
+                        if (isset($categories_games_type)) {
+                            echo '<p class="category-type">' . esc_html($categories_games_type) . '</p>';
+                        }
+                        if (isset($categories_games)) {
+                            echo '<p class="category-étiquettes">' . esc_html($categories_games) . '</p>';
+                        }
+                        if (isset($categories_games_them)) {
+                            echo '<p class="category-taxonomie">' . esc_html($categories_games_them) . '</p>';
+                        }
                     }
                 }
                 
