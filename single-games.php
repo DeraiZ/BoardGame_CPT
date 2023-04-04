@@ -1,43 +1,100 @@
 <?php
 get_header();
+?>
+<main>
+<section class="detail-block">
+    <div class="detail-block-container">
+        <div class="detail-block-image">
+            <?php
+            $image = get_post_meta( get_the_ID(), '_game_image', true );
+            if ( ! empty( $image ) ) {
+                echo '<img class="picture-details" src="' . esc_html( $image ) . '"/>';
+            }
+            ?>
+        </div>
+        <div class="detail-block-content">
+            <div class="details-block-name-year">
+                <div class="details-block-name">
+                <?php
+                $name = get_post_meta( get_the_ID(), '_game_name', true );
+                if ( ! empty( $name ) ) {
+                    echo '<h1 class="details-block-name-title">' . esc_html( $name ) . '</h1>';
+                }
+                ?>
+                </div>
+                <div class="details-block-year">
+                    <?php
+                    $year = get_post_meta( get_the_ID(), '_game_year', true );
+                    if ( ! empty( $year ) ) {
+                        echo '<p>' . esc_html( $year ) . '</p>';
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="details-block-info">
+                <div class="details-block-date">
+                    <p>Sortie le :</p>
+                    <?php
+                    $date = get_post_meta( get_the_ID(), '_game_date', true );
+                    if ( ! empty( $date ) ) {
+                        echo '<p>' . esc_html( $date ) . '</p>';
+                    }
+                    ?>
+                </div>
+                <div class="details-block-price">
+                    <p>Prix :</p>
+                    <?php
+                    $price = get_post_meta( get_the_ID(), '_game_price', true );
+                    if ( ! empty( $price ) ) {
+                        echo '<p>' . esc_html( $price ) . '€</p>';
+                    }
+                    ?>
+                </div> 
+                <div class="details-block-time">
+                    <p>Temps de jeu :</p>
+                    <?php
+                    $time = get_post_meta( get_the_ID(), '_game_time', true );
+                    if ( ! empty( $time ) ) {
+                        echo '<p>' . esc_html( $time ) . '</p>';
+                    }
+                    ?>
+                </div>
+                <div class="details-block-player">
+                    <p>Nbr de joueurs :</p>
+                    <?php
+                    $nbplayer = get_post_meta( get_the_ID(), '_game_nb_player', true );
+                    if ( ! empty( $nbplayer ) ) {
+                        echo '<p>' . esc_html( $nbplayer ) . '</p>';
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="details-block-content-description">
+        <div class="details-block-content">
+            <p class="details-block-titre">Contenu :</p>
+            <?php
+            $content = get_post_meta( get_the_ID(), '_game_content', true );
+            if ( ! empty( $content ) ) {
+                echo '<p>' . esc_html( $content ) . '</p>';
+            }
+            ?>
+        </div>  
+        <div class="details-block-description">
+            <p class="details-block-titre">Description :</p>
+            <?php
+            $description = get_post_meta( get_the_ID(), '_game_description', true );
+            if ( ! empty( $description ) ) {
+                echo '<p>' . esc_html( $description ) . '</p>';
+            }
+            ?>
+        </div>
+    </div>
+</section>
 
+</main>
 
-
-$name = get_post_meta( get_the_ID(), '_game_name', true );
-if ( ! empty( $name ) ) {
-    echo '<h1>' . esc_html( $name ) . '</h1>';
-}
-$year = get_post_meta( get_the_ID(), '_game_year', true );
-if ( ! empty( $year ) ) {
-    echo '<p>' . esc_html( $year ) . '</p>';
-}
-$date = get_post_meta( get_the_ID(), '_game_date', true );
-if ( ! empty( $date ) ) {
-    echo '<p>' . esc_html( $date ) . '</p>';
-}
-$price = get_post_meta( get_the_ID(), '_game_price', true );
-if ( ! empty( $price ) ) {
-    echo '<p>' . esc_html( $price ) . '</p>';
-}
-$time = get_post_meta( get_the_ID(), '_game_time', true );
-if ( ! empty( $time ) ) {
-    echo '<p>' . esc_html( $time ) . '</p>';
-}
-$nbplayer = get_post_meta( get_the_ID(), '_game_nb_player', true );
-if ( ! empty( $nbplayer ) ) {
-    echo '<p>' . esc_html( $nbplayer ) . '</p>';
-}
-$content = get_post_meta( get_the_ID(), '_game_content', true );
-if ( ! empty( $content ) ) {
-    echo '<p>' . esc_html( $content ) . '</p>';
-}
-$description = get_post_meta( get_the_ID(), '_game_description', true );
-if ( ! empty( $description ) ) {
-    echo '<p>' . esc_html( $description ) . '</p>';
-}
-
-$image = get_post_meta( get_the_ID(), '_game_image', true );
-if ( ! empty( $image ) ) {
-    echo '<img src="' . esc_html( $image ) . '"/>';
-}
+<?php
+get_footer();
 ?>

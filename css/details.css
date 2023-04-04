@@ -1,0 +1,67 @@
+.detail-block-container {
+    display: flex;
+    height: 50vh;
+}
+
+.detail-block-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.picture-details {
+    width: 300px;
+}
+
+.details-block-name-year {
+    width: 100%;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+}
+
+.details-block-name, .details-block-year {
+    background-color: #FFFFFF;
+}
+
+.details-block-name-title {
+    margin-bottom: 15px;
+}
+
+.details-block-titre {
+    font-weight: bold;
+}
+.details-block-info {
+    display: flex;
+    width: 100%;
+    height: 15%;
+    align-items: center;
+}
+
+.details-block-date, .details-block-price, .details-block-time, .details-block-player {
+    width: 10rem;
+    margin: 10px;
+    background-color: #FFFFFF;
+}
+
+.details-block-content-description {
+    display: flex;
+    margin: 0 25px;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+}
+
+.details-block-content {
+    background-color: #FFFFFF;
+    width: 30%;
+    padding: 15px;
+}
+
+.details-block-description {
+    background-color: #FFFFFF;
+    width: 50%;
+    padding: 15px;
+}
