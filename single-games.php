@@ -77,9 +77,15 @@ $them = wp_get_object_terms(get_the_ID(), 'categories_games_thematique');
             <div class="details-block-category">
                 <?php
                 for ($i=0; $i < count($type); $i++){
+                    if(isset($type[$i]->name)){
                     $categories_games_type = $type[$i]->name;
-                    $categories_games = $games[$i]->name;
-                    $categories_games_them = $them[$i]->name;
+                    }
+                    if(isset($games[$i]->name)){
+                        $categories_games = $games[$i]->name;
+                    }
+                    if(isset($them[$i]->name)){
+                        $categories_games_them = $them[$i]->name;
+                    }
                 
                     if ( ! empty( $categories_games_type ) ) {
                         if (isset($categories_games_type)) {

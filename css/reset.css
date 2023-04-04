@@ -28,4 +28,11 @@ body {
   
 main {
       min-height: 88.85vh ;
+      margin-top: 2rem;
+}
+
+@media (max-width: 500px) {
+    main {
+        margin-top: 10rem;
+    }
 }

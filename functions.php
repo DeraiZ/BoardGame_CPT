@@ -134,8 +134,7 @@ function save_game_info_meta_box_data( $post_id ) {
         update_post_meta($post_id,'_game_description',strval($_POST['game_description']) );
     }
 
-    $my_data = sanitize_textarea_field( $_POST['game_info'] );
-    update_post_meta( $post_id, '_game_info', $my_data );
+   
 }
 
 add_action( 'save_post', 'save_game_info_meta_box_data' );
