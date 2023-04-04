@@ -74,7 +74,8 @@
     align-items: center;
     width: 40%;
     margin-top: 15px;
-    height: 100px;
+
+
 }
 
 .category-type {
@@ -140,10 +141,6 @@
     .details-block-content {
         width: 100%;
     }
-
-    .details-block-category {
-        width: 100%;
-    }
 }
 
 @media (max-width: 400px) {
@@ -151,9 +148,16 @@
         margin-top: 100px;
     }
     .detail-block-container{
-        height: 120vh;
+        height: 130vh;
     }
     .details-block-info {
         justify-content: center;
+    }
+    .details-block-category {
+        height: 150px;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        flex-direction: column;
     }
 }
