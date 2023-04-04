@@ -1,6 +1,7 @@
 .detail-block-container {
     display: flex;
     height: 50vh;
+    flex-direction: row;
 }
 
 .detail-block-image {
@@ -9,6 +10,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .picture-details {
     width: 300px;
 }
@@ -37,7 +39,6 @@
 .details-block-info {
     display: flex;
     width: 100%;
-    height: 15%;
     align-items: center;
 }
 
@@ -58,10 +59,101 @@
     background-color: #FFFFFF;
     width: 30%;
     padding: 15px;
+    margin-bottom: 15px;
 }
 
 .details-block-description {
     background-color: #FFFFFF;
     width: 50%;
     padding: 15px;
+    margin-bottom: 15px;
+}
+
+.details-block-category {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    margin-top: 15px;
+    height: 100px;
+}
+
+.category-type {
+    background-color: #d17eaf7d;
+    padding: 10px;
+    border-radius: 5px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    margin-right: 15px;
+}
+
+.category-étiquettes {
+    background-color: #5ce09585;
+    padding: 10px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.category-taxonomie {
+    background-color: rgba(75, 133, 174, 0.516);
+    padding: 10px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+
+@media (max-width: 900px) {    
+
+    .detail-block-container{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .detail-block-image {      
+        width: 100%;
+    }
+    .details-block-info {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .details-block-content-description {
+        flex-direction: column-reverse;
+    }
+
+    .details-block-description {
+        width: 100%;
+    }
+
+    .details-block-content {
+        width: 100%;
+    }
+
+    .details-block-category {
+        width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    main {
+        margin-top: 100px;
+    }
+    .detail-block-container{
+        height: 120vh;
+    }
+    .details-block-info {
+        justify-content: center;
+    }
 }

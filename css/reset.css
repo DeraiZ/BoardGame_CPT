@@ -18,12 +18,14 @@ p, a {
     font-size: 20px !important;
 }
 
+a {
+    text-decoration: none;
+}
 
 body {
     background-color: #F7F7F2 !important;
 }
   
 main {
-      min-height: 86.95vh ;
-      margin-top: 17px;
+      min-height: 88.85vh ;
 }

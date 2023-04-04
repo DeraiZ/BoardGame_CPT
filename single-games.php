@@ -4,17 +4,6 @@ get_header();
 $type = wp_get_object_terms(get_the_ID(), 'categories_games_type');
 $games = wp_get_object_terms(get_the_ID(), 'categories_jeux');
 $them = wp_get_object_terms(get_the_ID(), 'categories_games_thematique');
-for ($i=0; $i < count($type); $i++){
-    $categories_games_type = $type[$i]->name;
-    $categories_games = $games[$i]->name;
-    $categories_games_them = $them[$i]->name;
-
-    if ( ! empty( $categories_games_type ) ) {
-        echo '<p>' . esc_html( $categories_games_type ) . '</p>';
-        echo '<p>' . esc_html( $categories_games ) . '</p>';
-        echo '<p>' . esc_html( $categories_games_them ) . '</p>';
-    }
-}
 
 ?>
 <main>
@@ -84,6 +73,22 @@ for ($i=0; $i < count($type); $i++){
                     }
                     ?>
                 </div>
+            </div>
+            <div class="details-block-category">
+                <?php
+                for ($i=0; $i < count($type); $i++){
+                    $categories_games_type = $type[$i]->name;
+                    $categories_games = $games[$i]->name;
+                    $categories_games_them = $them[$i]->name;
+                
+                    if ( ! empty( $categories_games_type ) ) {
+                        echo '<p class="category-type">' . esc_html( $categories_games_type ) . '</p>';
+                        echo '<p class="category-étiquettes">' . esc_html( $categories_games ) . '</p>';
+                        echo '<p class="category-taxonomie">' . esc_html( $categories_games_them ) . '</p>';
+                    }
+                }
+                
+                 ?>
             </div>
         </div>
     </div>

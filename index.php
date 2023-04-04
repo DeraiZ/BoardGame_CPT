@@ -9,7 +9,6 @@ $args = array(
     'orderby'     => 'title'
 );
 $games = get_posts( $args );
-var_dump($games);
 
 ?>
 <main>
