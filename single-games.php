@@ -40,6 +40,7 @@ $image = get_post_meta( get_the_ID(), '_game_image', true );
 if ( ! empty( $image ) ) {
     echo '<img src="' . esc_html( $image ) . '"/>';
 }
+
 ?>
 
 <header>
