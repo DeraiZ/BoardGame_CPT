@@ -7,12 +7,12 @@
 </head>
 <header class="en-tete">
     <nav class="navigation">
-        <a class="logo" href="/index.php">
+        <a class="logo" href="/games/">
             <svg xmlns="http://www.w3.org/2000/svg" width="130" height="47" viewBox="0 0 167 47">
                 <g id="Groupe_12" data-name="Groupe 12" transform="translate(-53 -22)">
                     <g id="Groupe_11" data-name="Groupe 11">
                         <text id="Ludo_Pl_y" data-name="Ludo Pl   y" transform="translate(53 59)" fill="#f7f7f2" font-size="36" font-family="PTSerif-Regular, PT Serif"><tspan x="0" y="0" xml:space="preserve">Ludo Pl   y</tspan></text>
-                        <g id="Groupe_1" data-name="Groupe 1" transform="translate(169 36.213)">
+                        <g id="Groupe_1" data-name="Groupe 1" transform="translate(168 36.213)">
                             <g id="Ellipse_7" data-name="Ellipse 7" transform="translate(-0.461 -0.213)" fill="#fff7bc" stroke="#707070" stroke-width="1">
                                 <circle cx="13.5" cy="13.5" r="13.5" stroke="none"/>
                                 <circle cx="13.5" cy="13.5" r="13" fill="none"/>

@@ -51,7 +51,7 @@ $them = wp_get_object_terms(get_the_ID(), 'categories_games_thematique');
                     <?php
                     $price = get_post_meta( get_the_ID(), '_game_price', true );
                     if ( ! empty( $price ) ) {
-                        echo '<p>' . esc_html( $price ) . '€</p>';
+                        echo '<p>' . esc_html( $price ) . '€ TTC</p>';
                     }
                     ?>
                 </div> 
