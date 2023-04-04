@@ -33,6 +33,26 @@ $description = get_post_meta( get_the_ID(), '_game_description', true );
 if ( ! empty( $description ) ) {
     echo '<p>' . esc_html( $description ) . '</p>';
 }
+
+$image = get_post_meta( get_the_ID(), '_game_image', true );
+if ( ! empty( $image ) ) {
+    echo '<img src="' . esc_html( $image ) . '"/>';
+}
+
+$type = wp_get_object_terms(get_the_ID(), 'categories_games_type');
+$games = wp_get_object_terms(get_the_ID(), 'categories_jeux');
+$them = wp_get_object_terms(get_the_ID(), 'categories_games_thematique');
+for ($i=0; $i < count($type); $i++){
+    $categories_games_type = $type[$i]->name;
+    $categories_games = $games[$i]->name;
+    $categories_games_them = $them[$i]->name;
+
+    if ( ! empty( $categories_games_type ) ) {
+        echo '<p>' . esc_html( $categories_games_type ) . '</p>';
+        echo '<p>' . esc_html( $categories_games ) . '</p>';
+        echo '<p>' . esc_html( $categories_games_them ) . '</p>';
+    }
+}
 ?>
 
 <header>

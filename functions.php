@@ -195,52 +195,52 @@ function games_taxonomy(){
 add_action('init', 'games_taxonomy', 0);
 
 // Meta Box Image
-//function add_game_image_meta_box() {
-//    add_meta_box(
-//        'game_image_meta_box', // Unique ID
-//        'Image du Jeu', // Box title
-//        'game_image', // Content callback
-//        'games', // Post type
-//        'normal', // Position
-//        'high' // Priority
-//    );
-//}
-//add_action( 'add_meta_boxes', 'add_game_image_meta_box' );
-//
-//function game_image( $post ) {
-//    wp_nonce_field( 'game_image_meta_box', 'game_image_meta_box_nonce' );
-//    $image = get_post_meta( $post->ID, '_game_image', true );
-//    echo '<input type="button" id="game_image_upload_button" class="button" value="' . __( 'Upload Image', 'textdomain' ) . '">';
-//    echo '<input type="hidden" id="game_image" name="game_image" value="' . esc_attr( $image ) . '">';
-//    if ( $image ) {
-//        echo '<div id="game_image_preview"><img src="' . esc_attr( $image ) . '"></div>';
-//    } else {
-//        echo '<div id="game_image_preview"></div>';
-//    }
-//}
-//
-//function save_game_image_meta_box_data( $post_id ) {
-//    if ( ! isset( $_POST['game_image_meta_box_nonce'] ) ) {
-//        return;
-//    }
-//    if ( ! wp_verify_nonce( $_POST['game_image_meta_box_nonce'], 'game_image_meta_box' ) ) {
-//        return;
-//    }
-//    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-//        return;
-//    }
-//    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-//        return;
-//    }
-//    if ( isset( $_POST['game_image'] ) ) {
-//        update_post_meta( $post_id, '_game_image', esc_url_raw( $_POST['game_image'] ) );
-//    }
-//}
-//add_action( 'save_post', 'save_game_image_meta_box_data' );
-//
-//function game_image_enqueue_scripts() {
-//    wp_enqueue_media();
-//    wp_enqueue_script( 'game-image-upload', get_stylesheet_directory_uri() . '/js/game-image-upload.js', array( 'jquery' ), '1.0.0', true );
-//}
-//add_action( 'admin_enqueue_scripts', 'game_image_enqueue_scripts' );
+function add_game_image_meta_box() {
+    add_meta_box(
+        'game_image_meta_box', // Unique ID
+        'Image du Jeu', // Box title
+        'game_image', // Content callback
+        'games', // Post type
+        'normal', // Position
+        'high' // Priority
+    );
+}
+add_action( 'add_meta_boxes', 'add_game_image_meta_box' );
+
+function game_image( $post ) {
+    wp_nonce_field( 'game_image_meta_box', 'game_image_meta_box_nonce' );
+    $image = get_post_meta( $post->ID, '_game_image', true );
+    echo '<input type="button" id="game_image_upload_button" class="button" value="' . __( 'Upload Image', 'textdomain' ) . '">';
+    echo '<input type="hidden" id="game_image" name="game_image" value="' . esc_attr( $image ) . '">';
+    if ( $image ) {
+        echo '<div id="game_image_preview"><img src="' . esc_attr( $image ) . '"></div>';
+    } else {
+        echo '<div id="game_image_preview"></div>';
+    }
+}
+
+function save_game_image_meta_box_data( $post_id ) {
+    if ( ! isset( $_POST['game_image_meta_box_nonce'] ) ) {
+        return;
+    }
+    if ( ! wp_verify_nonce( $_POST['game_image_meta_box_nonce'], 'game_image_meta_box' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+    if ( isset( $_POST['game_image'] ) ) {
+        update_post_meta( $post_id, '_game_image', esc_url_raw( $_POST['game_image'] ) );
+    }
+}
+add_action( 'save_post', 'save_game_image_meta_box_data' );
+
+function game_image_enqueue_scripts() {
+    wp_enqueue_media();
+    wp_enqueue_script( 'game-image-upload', get_stylesheet_directory_uri() . '/js/game-image-upload.js', array( 'jquery' ), '1.0.0', true );
+}
+add_action( 'admin_enqueue_scripts', 'game_image_enqueue_scripts' );
 
