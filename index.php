@@ -11,23 +11,25 @@ $args = array(
 $games = get_posts( $args );
 ?>
 <main>
-    <?php if ($games) : ?>
+    <?php
+    if ($games) : ?>
     <ul>
         <?php foreach ( $games as $game ) : setup_postdata( $game ); ?>
-            
-            <li>
-                <img style="width: 5rem" src="<?= get_post_meta($game->ID, '_game_image')[0] ?>">
-                <a href="<?= $game->guid ?>"><?= $game->post_title; ?></a>
-                <?php
+            <?php
                 $taxo = wp_get_object_terms($game->ID, 'categories_games_type');
-                for ($i=0; $i < count($taxo); $i++){ ?>
-                    <p><?= wp_get_object_terms($game->ID, 'categories_games_type')[$i] -> name ?></p>
-                    <p><?= wp_get_object_terms($game->ID, 'categories_jeux')[$i] -> name ?></p>
-                    <p><?= wp_get_object_terms($game->ID, 'categories_games_thematique')[$i] -> name ?></p>
+                for ($i=0; $i < count($taxo); $i++){
+                    if ( wp_get_object_terms($game->ID, 'categories_games_type')[$i] -> name == 'Nouveauté'){?>
+                    <li>
+                        <img style="width: 5rem" src="<?= get_post_meta($game->ID, '_game_image')[0] ?>">
+                        <a href="<?= $game->guid ?>"><?= $game->post_title; ?></a>
+                        <p><?= wp_get_object_terms($game->ID, 'categories_games_type')[$i] -> name ?></p>
+                        <p><?= wp_get_object_terms($game->ID, 'categories_jeux')[$i] -> name ?></p>
+                        <p><?= wp_get_object_terms($game->ID, 'categories_games_thematique')[$i] -> name ?></p>
+                    </li>
+                <?php }
+                } ?>
 
-                <?php } ?>
 
-            </li>
         <?php endforeach; wp_reset_postdata(); ?>
     </ul>
 <?php endif; ?>
